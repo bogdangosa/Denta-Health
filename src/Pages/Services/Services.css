@@ -1,0 +1,23 @@
+.Services{
+    width: 100%;
+    min-height: 100vh;
+    padding: 8rem 5rem 0 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.Services .service_title{
+    margin-bottom: 2rem;
+}
+.Services .service_description{
+    text-align: center;
+    width: 70%;
+    padding-bottom: 3rem;
+}
+
+
+.page-service-grid{
+    margin-bottom: 3rem;
+}
