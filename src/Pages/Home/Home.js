@@ -3,6 +3,7 @@ import Button from '../../Components/Buttons/Button';
 import CircleLogo from '../../Components/Cards/CircleLogo';
 import ServiceCard from '../../Components/Cards/ServiceCard';
 import './Home.css';
+import { useNavigate } from "react-router-dom";
 import SwiperCore, {Autoplay, Navigation, Pagination} from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import Swiper and modules styles
@@ -13,6 +14,8 @@ import 'swiper/css/pagination';
 const Home = () => {
   const navigationPrevRef = useRef(null)
   const navigationNextRef = useRef(null)
+  
+  let navigate = useNavigate();
 
 
   return (
@@ -38,13 +41,14 @@ const Home = () => {
               <div className='hero-overlay overlay-color-1'></div>
             </SwiperSlide>
             <SwiperSlide>
-              <img src='/hero-images/image2.jpg' alt="bg" className='hero-background'></img>
-              <div className='hero-overlay overlay-color-2'></div>
-            </SwiperSlide>
-            <SwiperSlide>
               <img src='/hero-images/image3.jpg' alt="bg" className='hero-background'></img>
               <div className='hero-overlay overlay-color-3'></div>
             </SwiperSlide>
+            <SwiperSlide>
+              <img src='/hero-images/image2.jpg' alt="bg" className='hero-background'></img>
+              <div className='hero-overlay overlay-color-2'></div>
+            </SwiperSlide>
+
             <SwiperSlide>
               <img src='/hero-images/image4.jpg' alt="bg" className='hero-background'></img>
               <div className='hero-overlay overlay-color-4'></div>
@@ -52,7 +56,7 @@ const Home = () => {
           </Swiper>
           <h1 className='hero-title'>The Art of<br/>Creating Smiles</h1>
           <p className='hero-subtitle'>We will take care of your dental health</p>
-          <Button>Book an Appointment</Button>
+          <Button onClick={()=>navigate("/Contact")}>Book an Appointment</Button>
         </section>
         <section className='why-us-section'>
             <div className='traits-container'>
@@ -64,7 +68,11 @@ const Home = () => {
             <div className='why-us-text-container'>
                 <h2>Why Dentahealth?</h2>
                 <p className='why-us-text'>Aliquam in ullamcorper risus. Vivamus interdum libero non nunc ornare, non imperdiet velit facilisis. Morbi nec ultrices est, accumsan pretium odio. Suspendisse potenti. Curabitur non volutpat nunc, a facilisis enim. Nam massa orci, mattis sit amet molestie ut, dictum sit amet elit. Mauris a blandit nisi. Etiam ac metus et orci tincidunt scelerisque.</p>
-                <Button>Read More</Button>
+                <Button onClick={()=>navigate("/Team")}>Read More</Button>
+                <div className='why-us-image'>
+                  <img src='/why_us_image.png'></img>
+                  <div className='why-us-image-overlay'></div>
+                </div>     
             </div>
         </section>
         <section className='testimonial-section'>
@@ -78,15 +86,28 @@ const Home = () => {
             <Swiper
               spaceBetween={48}
               slidesPerView={1}
+              loop={true}
+              autoplay={{
+               delay: 3500,
+               disableOnInteraction: false,
+               }}  
               navigation={{
                 prevEl: navigationPrevRef.current,
                 nextEl: navigationNextRef.current,
               }}
               onBeforeInit={(swiper) => {
-                swiper.params.navigation.prevEl = navigationPrevRef;
-                swiper.params.navigation.nextEl = navigationNextRef;
+                setTimeout(() => {
+                  // Override prevEl & nextEl now that refs are defined
+                  swiper.params.navigation.prevEl = navigationPrevRef.current
+                  swiper.params.navigation.nextEl = navigationNextRef.current
+
+                  // Re-init navigation
+                  swiper.navigation.destroy()
+                  swiper.navigation.init()
+                  swiper.navigation.update()
+                  });
              }}
-             modules={[Navigation]}>
+             modules={[Autoplay,Navigation]}>
               <SwiperSlide>
                 <TestimonialCard name="Thomas Robinson"/>
               </SwiperSlide>
@@ -112,6 +133,36 @@ const Home = () => {
             <ServiceCard title="Endodontics">Morbi augue turpis, pretium egestas ante non, dapibus finibus turpis. Quisque dapibus tincidunt elit. Sed tristique.</ServiceCard>
             <ServiceCard title="Prophylaxis">Morbi augue turpis, pretium egestas ante non, dapibus finibus turpis. Quisque dapibus tincidunt elit. Sed tristique.</ServiceCard>
           </div>
+          <div className='service-carousel-mobile'>
+          <Swiper
+              spaceBetween={48}
+              slidesPerView={1}
+              loop={true}
+              autoplay={{
+               delay: 3500,
+               disableOnInteraction: false,
+               }}  
+             modules={[Autoplay,Navigation]}>
+              <SwiperSlide>
+                <ServiceCard title="Implantology">Morbi augue turpis, pretium egestas ante non, dapibus finibus turpis. Quisque dapibus tincidunt elit. Sed tristique.</ServiceCard>
+              </SwiperSlide>
+              <SwiperSlide>
+                <ServiceCard title="Orthodontics">Morbi augue turpis, pretium egestas ante non, dapibus finibus turpis. Quisque dapibus tincidunt elit. Sed tristique.</ServiceCard>
+              </SwiperSlide>
+              <SwiperSlide>  
+                <ServiceCard title="Prosthetic">Morbi augue turpis, pretium egestas ante non, dapibus finibus turpis. Quisque dapibus tincidunt elit. Sed tristique.</ServiceCard>
+              </SwiperSlide>
+              <SwiperSlide>
+                <ServiceCard title="Dentistry">Morbi augue turpis, pretium egestas ante non, dapibus finibus turpis. Quisque dapibus tincidunt elit. Sed tristique.</ServiceCard>
+              </SwiperSlide>
+              <SwiperSlide>
+                <ServiceCard title="Endodontics">Morbi augue turpis, pretium egestas ante non, dapibus finibus turpis. Quisque dapibus tincidunt elit. Sed tristique.</ServiceCard>
+              </SwiperSlide>
+              <SwiperSlide>
+                <ServiceCard title="Prophylaxis">Morbi augue turpis, pretium egestas ante non, dapibus finibus turpis. Quisque dapibus tincidunt elit. Sed tristique.</ServiceCard>
+              </SwiperSlide>
+              </Swiper>
+          </div>
         </section>
 
         <section className='call-to-action-section'>
@@ -119,7 +170,7 @@ const Home = () => {
           <div  className='call-to-action-gradient'/>
           <h2>Do you want a consultation?</h2>
           <p className='description'>Integer euismod malesuada ex eleifend mollis. Nam condimentum accumsan mauris quis pharetra. Integer pharetra gravida consectetur.</p>
-          <Button>Book an Appointment</Button>
+          <Button className="call-to-action-button" onClick={()=>navigate("/Contact")}>Book an Appointment</Button>
         </section>
 
     </main>

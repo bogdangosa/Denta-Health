@@ -67,6 +67,29 @@ h2::before{
 }
 
 
+
+/* SCROLLBAR */
+
+body::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--color-white-green);
+  border-radius: 1rem;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--color-dark-green);
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--color-black);
+}
+
+
 @media screen and (max-width: 700px) {
   h2{
     font-size: 2rem;

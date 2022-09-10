@@ -7,7 +7,7 @@ const ServiceCard = (props) => {
     <div className="ServiceCard" onClick={()=>props.onClick()}>
         <h3>{props.title}</h3>
         <p className='description'>{props.children}</p>
-        <Button>Read More</Button>
+        <Button className="service-button">Read More</Button>
     </div>
   );
 }
